@@ -14,6 +14,24 @@
       --text-color: #333;
       --light-gray: #f5f5f5;
       --border-color: #ddd;
+      --background-color: #fff;
+      --card-bg: #fff;
+      --footer-bg: #1e1e1e;
+      --footer-text: #bbb;
+    }
+
+    /* متغیرهای Dark Mode */
+    [data-theme="dark"] {
+      --primary-color: #ff4d4d;
+      --primary-dark: #e60000;
+      --secondary-color: #121212;
+      --text-color: #f0f0f0;
+      --light-gray: #222;
+      --border-color: #444;
+      --background-color: #1a1a1a;
+      --card-bg: #2a2a2a;
+      --footer-bg: #0a0a0a;
+      --footer-text: #aaa;
     }
     
     * {
@@ -23,9 +41,10 @@
     body {
       margin: 0;
       font-family: 'Vazirmatn', sans-serif;
-      background-color: var(--secondary-color);
+      background-color: var(--background-color);
       color: var(--text-color);
       line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     
     header {
@@ -33,7 +52,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background-color: #fff;
+      background-color: var(--background-color);
       border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 0;
@@ -81,6 +100,29 @@
       left: 0;
     }
 
+    /* دکمه تغییر حالت */
+    #theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      color: var(--text-color);
+    }
+
+    #theme-toggle:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    #theme-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+
     /* دکمه سبد خرید */
     #cart-button {
       cursor: pointer;
@@ -121,7 +163,7 @@
     /* بخش اصلی */
     .hero {
       padding: 4rem 2rem;
-      background: linear-gradient(135deg, #f8f8f8 0%, #e9e9e9 100%);
+      background: linear-gradient(135deg, var(--secondary-color) 0%, var(--light-gray) 100%);
     }
     
     .hero-content {
@@ -148,7 +190,7 @@
     
     .hero-text h1 {
       font-size: 2.8rem;
-      color: #1e1e1e;
+      color: var(--text-color);
       margin-bottom: 1.5rem;
       font-weight: bold;
       line-height: 1.3;
@@ -196,12 +238,16 @@
       transform: translateY(-2px);
     }
 
+    [data-theme="dark"] .btn-outline:hover {
+      background-color: rgba(255, 77, 77, 0.1);
+    }
+
     /* دسته‌بندی‌ها */
     .section-title {
       text-align: center;
       font-size: 2rem;
       margin-bottom: 2rem;
-      color: #1e1e1e;
+      color: var(--text-color);
       position: relative;
       padding-bottom: 1rem;
     }
@@ -224,13 +270,13 @@
       gap: 1.5rem;
       padding: 2rem;
       justify-content: center;
-      background-color: #fff;
+      background-color: var(--background-color);
       max-width: 1200px;
       margin: 0 auto;
     }
     
     .category-box {
-      background: #fff;
+      background: var(--card-bg);
       padding: 1.5rem 1rem;
       border-radius: 12px;
       text-align: center;
@@ -255,6 +301,12 @@
       display: block;
     }
 
+    /* استایل آیکون‌ها در Dark Mode */
+    [data-theme="dark"] .category-box i,
+    [data-theme="dark"] .social-links a {
+      filter: brightness(1.2);
+    }
+
     /* محصولات */
     .products {
       padding: 3rem 2rem;
@@ -275,11 +327,12 @@
       flex-direction: column;
       align-items: center;
       padding: 1.5rem;
-      background: #fff;
+      background: var(--card-bg);
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
       border-radius: 12px;
       transition: all 0.3s ease;
       overflow: hidden;
+      border: 1px solid var(--border-color);
     }
     
     .product-card:hover {
@@ -308,7 +361,7 @@
     .product-card h3 {
       font-size: 1.1rem;
       margin: 0.5rem 0;
-      color: #1e1e1e;
+      color: var(--text-color);
     }
     
     .product-card .price {
@@ -369,7 +422,7 @@
 
     /* فوتر */
     footer {
-      background-color: #1e1e1e;
+      background-color: var(--footer-bg);
       color: #fff;
       padding: 3rem 2rem;
     }
@@ -411,7 +464,7 @@
     }
     
     .footer-column a {
-      color: #bbb;
+      color: var(--footer-text);
       text-decoration: none;
       transition: color 0.3s ease;
     }
@@ -459,7 +512,7 @@
       left: 0;
       width: 380px;
       height: 100vh;
-      background: white;
+      background: var(--background-color);
       box-shadow: 2px 0 15px rgba(0,0,0,0.2);
       transform: translateX(-100%);
       transition: transform 0.3s ease;
@@ -467,6 +520,7 @@
       overflow-y: auto;
       z-index: 9999;
       direction: rtl;
+      color: var(--text-color);
     }
     
     #cart-panel.open {
@@ -520,7 +574,7 @@
     }
     
     .quantity-btn {
-      background: #f0f0f0;
+      background: var(--light-gray);
       border: 1px solid var(--border-color);
       width: 28px;
       height: 28px;
@@ -531,7 +585,7 @@
     }
     
     .quantity-btn:hover {
-      background: #e0e0e0;
+      background: var(--border-color);
     }
     
     .remove-btn {
@@ -621,6 +675,24 @@
       visibility: visible;
     }
 
+    /* toast */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #333;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      z-index: 10000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 0.9rem;
+    }
+    .toast.show {
+      opacity: 1;
+    }
+
     /* رسپانسیو */
     @media (max-width: 768px) {
       header {
@@ -668,6 +740,20 @@
       <a href="categories.html">دسته‌بندی‌ها</a>
       <a href="about.html">درباره‌ما</a>
       <a href="contact.html">تماس با ما</a>
+      <button id="theme-toggle" aria-label="تغییر حالت رنگ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle id="sun" cx="12" cy="12" r="5"></circle>
+          <line id="sun-ray-1" x1="12" y1="1" x2="12" y2="3"></line>
+          <line id="sun-ray-2" x1="12" y1="21" x2="12" y2="23"></line>
+          <line id="sun-ray-3" x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line id="sun-ray-4" x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line id="sun-ray-5" x1="1" y1="12" x2="3" y2="12"></line>
+          <line id="sun-ray-6" x1="21" y1="12" x2="23" y2="12"></line>
+          <line id="sun-ray-7" x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line id="sun-ray-8" x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          <path id="moon" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" style="display: none;"></path>
+        </svg>
+      </button>
       <button id="cart-button">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="9" cy="21" r="1"></circle>
@@ -782,19 +868,19 @@
     </div>
   </section>
 
-  <section class="about-section" style="padding: 3rem 2rem; background-color: #fff;">
+  <section class="about-section" style="padding: 3rem 2rem; background-color: var(--light-gray);">
     <div style="max-width: 1200px; margin: 0 auto;">
       <h2 class="section-title">چرا یدک مارکت؟</h2>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-        <div style="text-align: center; padding: 1.5rem; border-radius: 8px; background-color: var(--light-gray);">
+        <div style="text-align: center; padding: 1.5rem; border-radius: 8px; background-color: var(--card-bg);">
           <h3>ضمانت اصالت کالا</h3>
           <p>تمامی محصولات ما دارای ضمانت اصالت و کیفیت هستند و از برندهای معتبر تأمین می‌شوند.</p>
         </div>
-        <div style="text-align: center; padding: 1.5rem; border-radius: 8px; background-color: var(--light-gray);">
+        <div style="text-align: center; padding: 1.5rem; border-radius: 8px; background-color: var(--card-bg);">
           <h3>تحویل سریع</h3>
           <p>سفارشات شما در کمترین زمان ممکن آماده و به سراسر کشور ارسال می‌شود.</p>
         </div>
-        <div style="text-align: center; padding: 1.5rem; border-radius: 8px; background-color: var(--light-gray);">
+        <div style="text-align: center; padding: 1.5rem; border-radius: 8px; background-color: var(--card-bg);">
           <h3>پشتیبانی 24 ساعته</h3>
           <p>تیم پشتیبانی ما به صورت 24 ساعته آماده پاسخگویی به سوالات شما می‌باشد.</p>
         </div>
@@ -941,110 +1027,115 @@
       }
     }
     
-    // ذخیره سبد خرید در localStorage
+       // ذخیره سبد خرید در localStorage
     function saveCart() {
       localStorage.setItem('cart', JSON.stringify(cart));
     }
     
     // بروزرسانی نمایش سبد خرید
     function updateCartUI() {
+      // بروزرسانی تعداد محصولات در آیکون سبد
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCount.textContent = totalItems;
+      
+      // بروزرسانی لیست محصولات در پنل سبد
       cartItemsList.innerHTML = '';
-      let totalQuantity = 0;
-      let totalPrice = 0;
       
       if (cart.length === 0) {
         cartItemsList.innerHTML = '<div class="empty-cart">سبد خرید شما خالی است</div>';
         cartSummary.innerHTML = '';
-      } else {
-        cart.forEach(item => {
-          totalQuantity += item.quantity;
-          totalPrice += item.price * item.quantity;
-          
-          const li = document.createElement('li');
-          li.className = 'cart-item';
-          li.innerHTML = `
-            <div class="cart-item-header">
-              <span class="cart-item-name">${item.name}</span>
-              <span class="cart-item-price">${(item.price * item.quantity).toLocaleString()} تومان</span>
-            </div>
-            <div class="cart-item-controls">
-              <button class="quantity-btn" data-id="${item.id}" data-action="decrease">-</button>
-              <span>${item.quantity}</span>
-              <button class="quantity-btn" data-id="${item.id}" data-action="increase">+</button>
-              <button class="remove-btn" data-id="${item.id}">حذف</button>
-            </div>
-          `;
-          cartItemsList.appendChild(li);
-        });
-        
-        // نمایش جمع کل
-        cartSummary.innerHTML = `
-          <div class="cart-total">
-            جمع کل: <span>${totalPrice.toLocaleString()} تومان</span>
-          </div>
-          <button id="checkout-btn" onclick="window.location.href='checkout.html'">تسویه حساب</button>
-        `;
+        return;
       }
       
-      // بروزرسانی شمارنده سبد خرید
-      cartCount.textContent = totalQuantity;
+      let totalPrice = 0;
       
-      // اضافه کردن ایونت‌های جدید برای دکمه‌های سبد خرید
-      document.querySelectorAll('.remove-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          removeFromCart(e.target.dataset.id);
-        });
+      cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        totalPrice += itemTotal;
+        
+        const li = document.createElement('li');
+        li.className = 'cart-item';
+        li.innerHTML = `
+          <div class="cart-item-header">
+            <span class="cart-item-name">${item.name}</span>
+            <span class="cart-item-price">${item.price.toLocaleString()} تومان</span>
+          </div>
+          <div class="cart-item-controls">
+            <button class="quantity-btn" onclick="updateQuantity('${item.id}', 'decrease')">-</button>
+            <span>${item.quantity}</span>
+            <button class="quantity-btn" onclick="updateQuantity('${item.id}', 'increase')">+</button>
+            <button class="remove-btn" onclick="removeFromCart('${item.id}')">حذف</button>
+          </div>
+        `;
+        cartItemsList.appendChild(li);
       });
       
-      document.querySelectorAll('.quantity-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          updateQuantity(e.target.dataset.id, e.target.dataset.action);
-        });
+      // نمایش جمع کل
+      cartSummary.innerHTML = `
+        <div class="cart-total">
+          جمع کل: <span>${totalPrice.toLocaleString()} تومان</span>
+        </div>
+        <button id="checkout-btn">تکمیل سفارش</button>
+      `;
+      
+      // اضافه کردن رویداد برای دکمه تسویه حساب
+      document.getElementById('checkout-btn')?.addEventListener('click', () => {
+        alert('سفارش شما با موفقیت ثبت شد!');
+        cart = [];
+        saveCart();
+        updateCartUI();
+        toggleCartPanel();
       });
     }
     
     // نمایش پیام toast
     function showToast(message) {
       const toast = document.createElement('div');
-      toast.className = 'toast';
+      toast.className = 'toast show';
       toast.textContent = message;
       document.body.appendChild(toast);
       
       setTimeout(() => {
-        toast.classList.add('show');
-      }, 10);
-      
-      setTimeout(() => {
         toast.classList.remove('show');
-        setTimeout(() => {
-          document.body.removeChild(toast);
-        }, 300);
+        setTimeout(() => toast.remove(), 300);
       }, 3000);
     }
     
-    // استایل toast
-    const toastStyle = document.createElement('style');
-    toastStyle.textContent = `
-      .toast {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #333;
-        color: white;
-        padding: 12px 24px;
-        border-radius: 4px;
-        z-index: 10000;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        font-size: 0.9rem;
+    // تغییر حالت تاریک/روشن
+    const themeToggle = document.getElementById('theme-toggle');
+    let currentTheme = localStorage.getItem('theme') || 'light';
+
+    // اعمال تم ذخیره شده در ابتدای بارگذاری صفحه
+    function applyTheme() {
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      
+      // تغییر آیکون بر اساس تم فعلی
+      document.getElementById('sun').style.display = currentTheme === 'light' ? 'block' : 'none';
+      document.getElementById('moon').style.display = currentTheme === 'dark' ? 'block' : 'none';
+      document.querySelectorAll('[id^="sun-ray"]').forEach(el => {
+        el.style.display = currentTheme === 'light' ? 'block' : 'none';
+      });
+    }
+
+    // اعمال تم در ابتدای بارگذاری
+    applyTheme();
+
+    themeToggle.addEventListener('click', () => {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', currentTheme);
+      applyTheme();
+    });
+      
+      // مقداردهی اولیه آیکون تم
+      if (currentTheme === 'dark') {
+        document.getElementById('sun').style.display = 'none';
+        document.getElementById('moon').style.display = 'block';
+        document.querySelectorAll('[id^="sun-ray"]').forEach(el => {
+          el.style.display = 'none';
+        });
       }
-      .toast.show {
-        opacity: 1;
-      }
-    `;
-    document.head.appendChild(toastStyle);
     
-    // بارگذاری اولیه سبد خرید
+    // بروزرسانی اولیه UI سبد خرید
     updateCartUI();
   </script>
 </body>
