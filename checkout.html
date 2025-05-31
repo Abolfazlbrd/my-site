@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تسویه حساب | یدک مارکت - فروشگاه تخصصی لوازم یدکی خودرو</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* استایل‌های مشترک با صفحه اصلی */
+    :root {
+      --primary-color: #e40000;
+      --primary-dark: #c10000;
+      --secondary-color: #f8f8f8;
+      --text-color: #333;
+      --light-gray: #f5f5f5;
+      --border-color: #ddd;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: var(--text-color);
+      position: relative;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    nav a:hover {
+      color: var(--primary-color);
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+      left: 0;
+    }
+
+    /* دکمه سبد خرید */
+    #cart-button {
+      cursor: pointer;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+    }
+    
+    #cart-button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    #cart-count {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      background: #ffcc00;
+      color: black;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    /* بخش تسویه حساب */
+    .checkout-section {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    
+    .checkout-container {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+      position: relative;
+      padding-bottom: 0.8rem;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 60px;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+    
+    /* فرم تسویه حساب */
+    .checkout-form {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-family: 'Vazirmatn', sans-serif;
+      transition: all 0.3s ease;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(228, 0, 0, 0.1);
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .form-row .form-group {
+      flex: 1;
+    }
+    
+    /* خلاصه سبد خرید */
+    .order-summary {
+      background-color: var(--light-gray);
+      padding: 2rem;
+      border-radius: 12px;
+    }
+    
+    .order-items {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem 0;
+    }
+    
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .order-item:last-child {
+      border-bottom: none;
+    }
+    
+    .order-total {
+      font-weight: bold;
+      font-size: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 2px solid var(--border-color);
+    }
+    
+    .order-total span {
+      color: var(--primary-color);
+    }
+    
+    /* روش‌های پرداخت */
+    .payment-methods {
+      margin-top: 2rem;
+    }
+    
+    .payment-method {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .payment-method:hover {
+      border-color: var(--primary-color);
+    }
+    
+    .payment-method input {
+      width: auto;
+      margin-left: 1rem;
+    }
+    
+    .payment-method label {
+      margin-bottom: 0;
+      cursor: pointer;
+      flex: 1;
+    }
+    
+    .payment-icon {
+      width: 40px;
+      height: 40px;
+      margin-left: 1rem;
+    }
+    
+    /* دکمه پرداخت */
+    .submit-btn {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+    
+    .submit-btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    /* فوتر */
+    footer {
+      background-color: #1e1e1e;
+      color: #fff;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #fff;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+    
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-column li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-column a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-column a:hover {
+      color: #fff;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-links a {
+      color: #fff;
+      background-color: #333;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid #333;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    /* رسپانسیو */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .checkout-section {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><span class="logo">یدک مارکت</span></div>
+    <nav>
+      <a href="index.html">خانه</a>
+      <a href="products.html">محصولات</a>
+      <a href="categories.html">دسته‌بندی‌ها</a>
+      <a href="about.html">درباره‌ما</a>
+      <a href="contact.html">تماس با ما</a>
+      <button id="cart-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        سبد خرید
+        <span id="cart-count">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="checkout-section">
+    <div class="checkout-container">
+      <h2 class="section-title">اطلاعات پرداخت</h2>
+      
+      <form class="checkout-form" id="checkoutForm">
+        <div class="form-group">
+          <label for="fullname">نام کامل</label>
+          <input type="text" id="fullname" name="fullname" required placeholder="نام و نام خانوادگی خود را وارد کنید" />
+        </div>
+        
+        <div class="form-group">
+          <label for="email">ایمیل</label>
+          <input type="email" id="email" name="email" required placeholder="آدرس ایمیل خود را وارد کنید" />
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">شماره تماس</label>
+          <input type="tel" id="phone" name="phone" required placeholder="شماره موبایل خود را وارد کنید" />
+        </div>
+        
+        <div class="form-group">
+          <label for="address">آدرس کامل</label>
+          <textarea id="address" name="address" required placeholder="آدرس دقیق پستی خود را وارد کنید"></textarea>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="province">استان</label>
+            <select id="province" name="province" required>
+              <option value="" disabled selected>انتخاب کنید</option>
+              <option value="tehran">تهران</option>
+              <option value="alborz">البرز</option>
+              <option value="isfahan">اصفهان</option>
+              <option value="fars">فارس</option>
+              <option value="khorasan">خراسان رضوی</option>
+              <!-- سایر استان‌ها -->
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="city">شهر</label>
+            <select id="city" name="city" required>
+              <option value="" disabled selected>ابتدا استان را انتخاب کنید</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="postalcode">کد پستی</label>
+          <input type="text" id="postalcode" name="postalcode" required placeholder="کد پستی ۱۰ رقمی" />
+        </div>
+        
+        <div class="payment-methods">
+          <h3>روش پرداخت</h3>
+          
+          <div class="payment-method">
+            <input type="radio" id="payment-online" name="payment" value="online" checked />
+            <label for="payment-online">پرداخت آنلاین</label>
+            <img src="https://i.imgur.com/JY5ZQ4a.jpg" alt="پرداخت آنلاین" class="payment-icon" />
+          </div>
+          
+          <div class="payment-method">
+            <input type="radio" id="payment-cash" name="payment" value="cash" />
+            <label for="payment-cash">پرداخت در محل (نقدی)</label>
+            <img src="https://i.imgur.com/KZ6mhCj.png" alt="پرداخت نقدی" class="payment-icon" />
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="notes">یادداشت‌ها (اختیاری)</label>
+          <textarea id="notes" name="notes" placeholder="یادداشت‌های اضافی درباره سفارش"></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">پرداخت و تکمیل سفارش</button>
+      </form>
+    </div>
+    
+    <div class="order-summary">
+      <h2 class="section-title">خلاصه سفارش</h2>
+      
+      <ul class="order-items" id="order-items">
+        <!-- آیتم‌های سبد خرید اینجا نمایش داده می‌شوند -->
+      </ul>
+      
+      <div class="order-total">
+        <span>جمع کل:</span>
+        <span id="order-total">۰ تومان</span>
+      </div>
+      
+      <div class="shipping-info">
+        <h3>اطلاعات ارسال</h3>
+        <p>هزینه ارسال پس از ثبت آدرس محاسبه خواهد شد</p>
+        <p>تحویل معمولاً بین ۲ تا ۴ روز کاری انجام می‌شود</p>
+      </div>
+      
+      <div class="return-policy">
+        <h3>سیاست بازگشت کالا</h3>
+        <p>در صورت عدم رضایت از کالا، تا ۷ روز پس از تحویل امکان بازگشت کالا وجود دارد</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>یدک مارکت</h3>
+        <p>فروشگاه تخصصی لوازم یدکی خودرو با بیش از ۱۰ سال سابقه درخشان در زمینه تأمین و توزیع لوازم یدکی اصل</p>
+        <div class="social-links">
+          <a href="#"><span>📱</span></a>
+          <a href="#"><span>📧</span></a>
+          <a href="#"><span>📞</span></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>لینک‌های مفید</h3>
+        <ul>
+          <li><a href="index.html">خانه</a></li>
+          <li><a href="products.html">محصولات</a></li>
+          <li><a href="categories.html">دسته‌بندی‌ها</a></li>
+          <li><a href="about.html">درباره ما</a></li>
+          <li><a href="contact.html">تماس با ما</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>خدمات مشتریان</h3>
+        <ul>
+          <li><a href="#">پرسش‌های متداول</a></li>
+          <li><a href="#">شرایط بازگرداندن کالا</a></li>
+          <li><a href="#">رویه خرید از سایت</a></li>
+          <li><a href="#">قوانین و مقررات</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>تماس با ما</h3>
+        <ul>
+          <li>تهران، خیابان آزادی، کوچه شهید فلانی، پلاک ۱۲</li>
+          <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+          <li>موبایل: ۰۹۱۲۳۴۵۶۷۸۹</li>
+          <li>ایمیل: info@yadakmarket.ir</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>کلیه حقوق مادی و معنوی این وبسایت متعلق به یدک مارکت می‌باشد &copy; ۱۴۰۳</p>
+    </div>
+  </footer>
+
+  <script>
+    // اسکریپت سبد خرید
+    const cartButton = document.getElementById('cart-button');
+    const cartCount = document.getElementById('cart-count');
+    
+    // بارگذاری تعداد آیتم‌های سبد خرید از localStorage
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+      cartCount.textContent = totalQuantity;
+    }
+    
+    // بارگذاری اولیه
+    updateCartCount();
+    
+    // نمایش آیتم‌های سبد خرید در صفحه تسویه حساب
+    function displayOrderSummary() {
+      const orderItems = document.getElementById('order-items');
+      const orderTotal = document.getElementById('order-total');
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      orderItems.innerHTML = '';
+      let total = 0;
+      
+      if (cart.length === 0) {
+        orderItems.innerHTML = '<li>سبد خرید شما خالی است</li>';
+        orderTotal.textContent = '۰ تومان';
+      } else {
+        cart.forEach(item => {
+          const li = document.createElement('li');
+          li.className = 'order-item';
+          li.innerHTML = `
+            <span>${item.name} (${item.quantity} عدد)</span>
+            <span>${(item.price * item.quantity).toLocaleString()} تومان</span>
+          `;
+          orderItems.appendChild(li);
+          total += item.price * item.quantity;
+        });
+        
+        orderTotal.textContent = total.toLocaleString() + ' تومان';
+      }
+    }
+    
+    // مدیریت انتخاب استان و شهر
+    const provinceSelect = document.getElementById('province');
+    const citySelect = document.getElementById('city');
+    
+    const cities = {
+      tehran: ['تهران', 'شهریار', 'اسلامشهر', 'پاکدشت', 'رباط کریم'],
+      alborz: ['کرج', 'نظرآباد', 'اشتهارد', 'طالقان'],
+      isfahan: ['اصفهان', 'کاشان', 'خمینی شهر', 'شاهین شهر'],
+      fars: ['شیراز', 'مرودشت', 'کازرون', 'فسا'],
+      khorasan: ['مشهد', 'نیشابور', 'سبزوار', 'تربت حیدریه']
+    };
+    
+    provinceSelect.addEventListener('change', function() {
+      const selectedProvince = this.value;
+      citySelect.innerHTML = '<option value="" disabled selected>انتخاب کنید</option>';
+      
+      if (selectedProvince) {
+        cities[selectedProvince].forEach(city => {
+          const option = document.createElement('option');
+          option.value = city;
+          option.textContent = city;
+          citySelect.appendChild(option);
+        });
+      }
+    });
+    
+    // مدیریت ارسال فرم
+    const checkoutForm = document.getElementById('checkoutForm');
+    
+    checkoutForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // جمع‌آوری داده‌های فرم
+      const formData = new FormData(checkoutForm);
+      const formObject = Object.fromEntries(formData.entries());
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      // ایجاد شیء سفارش
+      const order = {
+        customer: formObject,
+        items: cart,
+        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+        paymentMethod: formObject.payment,
+        date: new Date().toISOString(),
+        status: 'pending'
+      };
+      
+      // ذخیره سفارش در localStorage
+      const orders = JSON.parse(localStorage.getItem('orders')) || [];
+      orders.push(order);
+      localStorage.setItem('orders', JSON.stringify(orders));
+      
+      // خالی کردن سبد خرید
+      localStorage.removeItem('cart');
+      updateCartCount();
+      
+      // نمایش پیام موفقیت
+      alert('سفارش شما با موفقیت ثبت شد. با تشکر از خرید شما!');
+      
+      // انتقال به صفحه تأیید سفارش
+      window.location.href = 'order-confirmation.html';
+    });
+    
+    // بارگذاری اولیه خلاصه سفارش
+    displayOrderSummary();
+  </script>
+</body>
+</html>

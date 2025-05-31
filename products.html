@@ -2,278 +2,1033 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>محصولات - یدک مارکت</title>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>محصولات | یدک مارکت - فروشگاه تخصصی لوازم یدکی خودرو</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
+    /* استایل‌های مشترک با صفحه اصلی */
+    :root {
+      --primary-color: #e40000;
+      --primary-dark: #c10000;
+      --secondary-color: #f8f8f8;
+      --text-color: #333;
+      --light-gray: #f5f5f5;
+      --border-color: #ddd;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
     body {
       margin: 0;
       font-family: 'Vazirmatn', sans-serif;
-      background-color: #f9f9f9;
-      color: #222;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      line-height: 1.6;
     }
+    
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
       background-color: #fff;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
+    
     .logo {
       font-weight: bold;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
+      color: var(--primary-color);
     }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
     nav a {
-      margin: 0 1rem;
       text-decoration: none;
-      color: #333;
+      color: var(--text-color);
+      position: relative;
+      font-weight: 500;
+      transition: color 0.3s ease;
     }
+    
     nav a:hover {
-      color: #e40000;
+      color: var(--primary-color);
     }
-    h1 {
-      text-align: center;
-      margin-top: 2rem;
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+      left: 0;
     }
 
-    .filters {
-      max-width: 500px;
-      margin: 2rem auto;
+    /* دکمه سبد خرید */
+    #cart-button {
+      cursor: pointer;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+    }
+    
+    #cart-button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    #cart-count {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      background: #ffcc00;
+      color: black;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
       display: flex;
       justify-content: center;
-    }
-    .filter-box {
-      background: linear-gradient(135deg, #fefefe, #f3f3f3);
-      padding: 1.5rem 2rem;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 350px;
-      text-align: center;
-    }
-    .filter-box h3 {
-      margin-bottom: 1rem;
-      color: #e60000;
-      font-size: 1.2rem;
-    }
-    .filter-box select {
-      width: 100%;
-      padding: 0.7rem;
-      font-size: 1rem;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      outline: none;
-      background-color: #fff;
+      align-items: center;
+      font-size: 12px;
     }
 
-    .products-container {
+    /* بخش فیلترها */
+    .filters-section {
+      background-color: #fff;
+      padding: 2rem;
+      margin: 1rem auto;
+      max-width: 1200px;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+    
+    .filters-container {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 1.5rem;
-      padding: 2rem;
+      justify-content: center;
     }
-    .product-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 1rem;
-      width: 200px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      text-align: center;
+    
+    .filter-box {
+      flex: 1;
+      min-width: 200px;
+      max-width: 300px;
     }
-    .product-card img {
-      width: 80px;
-      height: auto;
-      margin-bottom: 1rem;
+    
+    .filter-box h3 {
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+      color: #555;
     }
-    .product-card button {
-      background-color: #e60000;
-      color: #fff;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .product-card button:hover {
-      background-color: #c10000;
+    
+    .filter-box select, 
+    .filter-box input {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: var(--light-gray);
     }
 
-    footer {
+    /* محصولات */
+    .products-section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
       text-align: center;
-      padding: 1rem;
-      background-color: #eee;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #1e1e1e;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 50%;
+      transform: translateX(50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary-color);
+      border-radius: 2px;
+    }
+    
+    .products-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+    
+    .product-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem;
+      background: #fff;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .product-card img {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover img {
+      transform: scale(1.05);
+    }
+    
+    .product-info {
+      width: 100%;
+      text-align: center;
+    }
+    
+    .product-card h3 {
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+      color: #1e1e1e;
+    }
+    
+    .product-card .price {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin: 0.5rem 0;
+    }
+    
+    .product-card .original-price {
+      color: #888;
       font-size: 0.9rem;
+      text-decoration: line-through;
+      margin-left: 0.5rem;
+    }
+    
+    .product-card button {
+      margin-top: 1rem;
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+    
+    .product-card button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    .discount-tag {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-weight: bold;
+    }
+    
+    .new-tag {
+      background-color: #4CAF50;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      font-weight: bold;
+    }
+
+    /* فوتر */
+    footer {
+      background-color: #1e1e1e;
+      color: #fff;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #fff;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+    
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-column li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-column a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-column a:hover {
+      color: #fff;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-links a {
+      color: #fff;
+      background-color: #333;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
       margin-top: 2rem;
+      border-top: 1px solid #333;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    /* پنل سبد خرید */
+    #cart-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 380px;
+      height: 100vh;
+      background: white;
+      box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      padding: 1.5rem;
+      overflow-y: auto;
+      z-index: 9999;
+      direction: rtl;
+    }
+    
+    #cart-panel.open {
+      transform: translateX(0);
+    }
+    
+    #cart-panel h2 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid var(--primary-color);
+    }
+    
+    #cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .cart-item {
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+    }
+    
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    
+    .cart-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .cart-item-name {
+      font-weight: bold;
+    }
+    
+    .cart-item-price {
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+    
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 0.5rem 0;
+    }
+    
+    .quantity-btn {
+      background: #f0f0f0;
+      border: 1px solid var(--border-color);
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+    
+    .quantity-btn:hover {
+      background: #e0e0e0;
+    }
+    
+    .remove-btn {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    
+    .remove-btn:hover {
+      background: #ff5252;
+    }
+    
+    .cart-total {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin: 1.5rem 0;
+      text-align: left;
+      padding-top: 1rem;
+      border-top: 2px solid var(--border-color);
+    }
+    
+    .cart-total span {
+      color: var(--primary-color);
+    }
+    
+    #checkout-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 8px;
+      width: 100%;
+      margin-top: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    #checkout-btn:hover {
+      background: #3d8b40;
+      transform: translateY(-2px);
+    }
+    
+    #close-cart {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+    
+    #close-cart:hover {
+      background: var(--primary-dark);
+    }
+    
+    .empty-cart {
+      text-align: center;
+      padding: 2rem 0;
+      color: #888;
+    }
+
+    /* لایه overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 9998;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* رسپانسیو */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .products-container {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      }
+      
+      #cart-panel {
+        width: 90%;
+      }
+      
+      .filters-container {
+        flex-direction: column;
+      }
+      
+      .filter-box {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-
-<header>
-  <div class="logo">یدک مارکت</div>
-  <nav>
+  <header>
+    <div><span class="logo">یدک مارکت</span></div>
+    <nav>
       <a href="index.html">خانه</a>
       <a href="products.html">محصولات</a>
+      <a href="categories.html">دسته‌بندی‌ها</a>
       <a href="about.html">درباره‌ما</a>
       <a href="contact.html">تماس با ما</a>
-  </nav>
-</header>
+      <button id="cart-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        سبد خرید
+        <span id="cart-count">0</span>
+      </button>
+    </nav>
+  </header>
 
-<h1>لیست محصولات</h1>
+  <section class="filters-section">
+    <div class="filters-container">
+      <div class="filter-box">
+        <h3>انتخاب خودرو</h3>
+        <select id="car-select">
+          <option value="all">همه خودروها</option>
+          <option value="pride">پراید</option>
+          <option value="peugeot">پژو</option>
+          <option value="samand">سمند</option>
+          <option value="tiba">تیبا</option>
+          <option value="l90">ال‌۹۰</option>
+        </select>
+      </div>
+      
+      <div class="filter-box">
+        <h3>دسته‌بندی</h3>
+        <select id="category-select">
+          <option value="all">همه دسته‌بندی‌ها</option>
+          <option value="engine">موتور</option>
+          <option value="brake">ترمز</option>
+          <option value="electrical">برقی</option>
+          <option value="body">بدنه</option>
+          <option value="oil">روغن‌ها</option>
+        </select>
+      </div>
+      
+      <div class="filter-box">
+        <h3>جستجوی محصول</h3>
+        <input type="text" id="search-input" placeholder="نام محصول را وارد کنید...">
+      </div>
+    </div>
+  </section>
 
-<div class="filters">
-  <div class="filter-box">
-    <h3>انتخاب ماشین</h3>
-    <select id="car-select">
-      <option value="all">همه ماشین‌ها</option>
-      <option value="pride">پراید</option>
-      <option value="peugeot">پژو</option>
-      <option value="samand">سمند</option>
-      <option value="l90">ال‌۹۰</option>
-      <option value="tiba">تیبا</option>
-    </select>
-  </div>
-</div>
+  <section class="products-section">
+    <h2 class="section-title">محصولات ما</h2>
+    <div class="products-container">
+      <!-- محصولات پراید -->
+      <div class="product-card" data-car="pride" data-category="brake">
+        <span class="discount-tag">٪۱۰ تخفیف</span>
+        <img src="https://i.imgur.com/KZ6mhCj.png" alt="لنت ترمز جلو پراید" />
+        <div class="product-info">
+          <h3>لنت ترمز جلو پراید</h3>
+          <div class="price">
+            ۴۰۰٬۰۰۰ تومان
+            <span class="original-price">۴۴۰٬۰۰۰</span>
+          </div>
+          <button class="add-to-cart">افزودن به سبد</button>
+        </div>
+      </div>
+      
+      <div class="product-card" data-car="pride" data-category="body">
+        <img src="https://i.imgur.com/KZ6mhCj.png" alt="چراغ عقب پراید" />
+        <div class="product-info">
+          <h3>چراغ عقب پراید</h3>
+          <div class="price">
+            ۳۰۰٬۰۰۰ تومان
+          </div>
+          <button class="add-to-cart">افزودن به سبد</button>
+        </div>
+      </div>
+      
+      <div class="product-card" data-car="pride" data-category="engine">
+        <span class="new-tag">جدید</span>
+        <img src="https://i.imgur.com/KZ6mhCj.png" alt="فیلتر هوا پراید" />
+        <div class="product-info">
+          <h3>فیلتر هوا پراید</h3>
+          <div class="price">
+            ۸۰٬۰۰۰ تومان
+          </div>
+          <button class="add-to-cart">افزودن به سبد</button>
+        </div>
+      </div>
+      
+      <!-- محصولات پژو -->
+      <div class="product-card" data-car="peugeot" data-category="oil">
+        <img src="https://i.imgur.com/rZK4EFZ.png" alt="فیلتر روغن پژو" />
+        <div class="product-info">
+          <h3>فیلتر روغن پژو</h3>
+          <div class="price">
+            ۱۵۰٬۰۰۰ تومان
+          </div>
+          <button class="add-to-cart">افزودن به سبد</button>
+        </div>
+      </div>
+      
+      <div class="product-card" data-car="peugeot" data-category="body">
+        <span class="discount-tag">٪۱۵ تخفیف</span>
+        <img src="https://i.imgur.com/rZK4EFZ.png" alt="کمک فنر پژو" />
+        <div class="product-info">
+          <h3>کمک فنر پژو</h3>
+          <div class="price">
+            ۹۵۰٬۰۰۰ تومان
+            <span class="original-price">۱٬۱۲۰٬۰۰۰</span>
+          </div>
+          <button class="add-to-cart">افزودن به سبد</button>
+        </div>
+      </div>
+      
+      <div class="product-card" data-car="peugeot" data-category="brake">
+        <img src="https://i.imgur.com/rZK4EFZ.png" alt="دیسک ترمز پژو" />
+        <div class="product-info">
+          <h3>دیسک ترمز پژو</h3>
+          <div class="price">
+            ۷۵۰٬۰۰۰ تومان
+          </div>
+          <button class="add-to-cart">افزودن به سبد</button>
+        </div>
+      </div>
+      
+      <!-- محصولات سمند -->
+      <div class="product-card" data-car="samand" data-category="brake">
+        <img src="https://i.imgur.com/KZ6mhCj.png" alt="لنت ترمز سمند" />
+        <div class="product-info">
+          <h3>لنت ترمز سمند</h3>
+          <div class="price">
+            ۴۳۰٬۰۰۰ تومان
+          </div>
+          <button class="add-to-cart">افزودن به سبد</button>
+        </div>
+      </div>
+      
+      <div class="product-card" data-car="samand" data-category="engine">
+        <img src="https://i.imgur.com/KZ6mhCj.png" alt="شمع موتور سمند" />
+        <div class="product-info">
+          <h3>شمع موتور سمند</h3>
+          <div class="price">
+            ۱۸۰٬۰۰۰ تومان
+          </div>
+          <button class="add-to-cart">افزودن به سبد</button>
+        </div>
+      </div>
+      
+      <!-- محصولات تیبا -->
+      <div class="product-card" data-car="tiba" data-category="brake">
+        <img src="https://i.imgur.com/zlDB3vU.png" alt="لنت ترمز تیبا" />
+        <div class="product-info">
+          <h3>لنت ترمز تیبا</h3>
+          <div class="price">
+            ۴۱۰٬۰۰۰ تومان
+          </div>
+          <button class="add-to-cart">افزودن به سبد</button>
+        </div>
+      </div>
+      
+      <!-- محصولات ال‌۹۰ -->
+      <div class="product-card" data-car="l90" data-category="electrical">
+        <img src="https://i.imgur.com/zlDB3vU.png" alt="لامپ جلو ال۹۰" />
+        <div class="product-info">
+          <h3>لامپ جلو ال۹۰</h3>
+          <div class="price">
+            ۹۵٬۰۰۰ تومان
+          </div>
+          <button class="add-to-cart">افزودن به سبد</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div class="products-container">
-  <div class="product-card" data-car="pride">
-    <img src="https://i.imgur.com/KZ6mhCj.png" alt="لنت ترمز جلو پراید" />
-    <p>لنت ترمز جلو پراید</p>
-    <p>۴۰۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="pride">
-    <img src="https://i.imgur.com/KZ6mhCj.png" alt="چراغ عقب پراید" />
-    <p>چراغ عقب پراید</p>
-    <p>۳۰۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="pride">
-    <img src="https://i.imgur.com/KZ6mhCj.png" alt="فیلتر هوا پراید" />
-    <p>فیلتر هوا پراید</p>
-    <p>۸۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>یدک مارکت</h3>
+        <p>فروشگاه تخصصی لوازم یدکی خودرو با بیش از ۱۰ سال سابقه درخشان در زمینه تأمین و توزیع لوازم یدکی اصل</p>
+        <div class="social-links">
+          <a href="#"><span>📱</span></a>
+          <a href="#"><span>📧</span></a>
+          <a href="#"><span>📞</span></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>لینک‌های مفید</h3>
+        <ul>
+          <li><a href="index.html">خانه</a></li>
+          <li><a href="products.html">محصولات</a></li>
+          <li><a href="about.html">درباره ما</a></li>
+          <li><a href="contact.html">تماس با ما</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>خدمات مشتریان</h3>
+        <ul>
+          <li><a href="#">پرسش‌های متداول</a></li>
+          <li><a href="#">شرایط بازگرداندن کالا</a></li>
+          <li><a href="#">رویه خرید از سایت</a></li>
+          <li><a href="#">قوانین و مقررات</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>تماس با ما</h3>
+        <ul>
+          <li>تهران، خیابان آزادی، کوچه شهید فلانی، پلاک ۱۲</li>
+          <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+          <li>موبایل: ۰۹۱۲۳۴۵۶۷۸۹</li>
+          <li>ایمیل: info@yadakmarket.ir</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>کلیه حقوق مادی و معنوی این وبسایت متعلق به یدک مارکت می‌باشد &copy; ۱۴۰۳</p>
+    </div>
+  </footer>
 
-  <div class="product-card" data-car="peugeot">
-    <img src="https://i.imgur.com/rZK4EFZ.png" alt="فیلتر روغن پژو" />
-    <p>فیلتر روغن پژو</p>
-    <p>۱۵۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="peugeot">
-    <img src="https://i.imgur.com/rZK4EFZ.png" alt="کمک فنر پژو" />
-    <p>کمک فنر پژو</p>
-    <p>۹۵۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="peugeot">
-    <img src="https://i.imgur.com/rZK4EFZ.png" alt="دیسک ترمز پژو" />
-    <p>دیسک ترمز پژو</p>
-    <p>۷۵۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="peugeot">
-    <img src="https://i.imgur.com/rZK4EFZ.png" alt="چراغ مه شکن پژو" />
-    <p>چراغ مه شکن پژو</p>
-    <p>۳۲۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
+  <!-- پنل سبد خرید -->
+  <aside id="cart-panel" aria-label="سبد خرید">
+    <button id="close-cart">بستن سبد</button>
+    <h2>سبد خرید شما</h2>
+    <ul id="cart-items"></ul>
+    <div id="cart-summary"></div>
+  </aside>
+  
+  <div class="overlay" id="overlay"></div>
 
-  <div class="product-card" data-car="samand">
-    <img src="https://i.imgur.com/KZ6mhCj.png" alt="لنت ترمز سمند" />
-    <p>لنت ترمز سمند</p>
-    <p>۴۳۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="samand">
-    <img src="https://i.imgur.com/KZ6mhCj.png" alt="شمع موتور سمند" />
-    <p>شمع موتور سمند</p>
-    <p>۱۸۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="samand">
-    <img src="https://i.imgur.com/KZ6mhCj.png" alt="فیلتر کابین سمند" />
-    <p>فیلتر کابین سمند</p>
-    <p>۱۲۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="samand">
-    <img src="https://i.imgur.com/KZ6mhCj.png" alt="آینه بغل سمند" />
-    <p>آینه بغل سمند</p>
-    <p>۳۹۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-
-  <div class="product-card" data-car="tiba">
-    <img src="https://i.imgur.com/zlDB3vU.png" alt="لنت ترمز تیبا" />
-    <p>لنت ترمز تیبا</p>
-    <p>۴۱۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="tiba">
-    <img src="https://i.imgur.com/zlDB3vU.png" alt="فیلتر هوا تیبا" />
-    <p>فیلتر هوا تیبا</p>
-    <p>۹۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="tiba">
-    <img src="https://i.imgur.com/zlDB3vU.png" alt="آینه بغل تیبا" />
-    <p>آینه بغل تیبا</p>
-    <p>۳۴۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-
-  <div class="product-card" data-car="l90">
-    <img src="https://i.imgur.com/zlDB3vU.png" alt="لامپ جلو ال۹۰" />
-    <p>لامپ جلو ال۹۰</p>
-    <p>۹۵٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="l90">
-    <img src="https://i.imgur.com/zlDB3vU.png" alt="سنسور دنده عقب ال۹۰" />
-    <p>سنسور دنده عقب ال۹۰</p>
-    <p>۲۵۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="l90">
-    <img src="https://i.imgur.com/zlDB3vU.png" alt="فیلتر روغن ال۹۰" />
-    <p>فیلتر روغن ال۹۰</p>
-    <p>۱۱۰٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-  <div class="product-card" data-car="l90">
-    <img src="https://i.imgur.com/zlDB3vU.png" alt="واشر درب سوپاپ ال۹۰" />
-    <p>واشر درب سوپاپ ال۹۰</p>
-    <p>۷۵٬۰۰۰ تومان</p>
-    <button>افزودن به سبد</button>
-  </div>
-</div>
-
-
-<footer>
-  © تمامی حقوق این سایت محفوظ است - یدک مارکت
-</footer>
-
-<script>
-  const carSelect = document.getElementById('car-select');
-  const products = document.querySelectorAll('.product-card');
-
-  carSelect.addEventListener('change', function() {
-    const selectedCar = carSelect.value;
-    products.forEach(product => {
-      if (selectedCar === 'all' || product.dataset.car === selectedCar) {
-        product.style.display = 'block';
-      } else {
-        product.style.display = 'none';
-      }
+  <script>
+    // انتخاب المنت‌های مورد نیاز
+    const cartButton = document.getElementById('cart-button');
+    const cartPanel = document.getElementById('cart-panel');
+    const closeCartBtn = document.getElementById('close-cart');
+    const cartItemsList = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+    const cartSummary = document.getElementById('cart-summary');
+    const overlay = document.getElementById('overlay');
+    const carSelect = document.getElementById('car-select');
+    const categorySelect = document.getElementById('category-select');
+    const searchInput = document.getElementById('search-input');
+    const productCards = document.querySelectorAll('.product-card');
+    
+    // آرایه سبد خرید
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // باز و بسته کردن پنل سبد خرید
+    function toggleCartPanel() {
+      cartPanel.classList.toggle('open');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = cartPanel.classList.contains('open') ? 'hidden' : 'auto';
+    }
+    
+    cartButton.addEventListener('click', toggleCartPanel);
+    closeCartBtn.addEventListener('click', toggleCartPanel);
+    overlay.addEventListener('click', toggleCartPanel);
+    
+    // فیلتر کردن محصولات
+    function filterProducts() {
+      const selectedCar = carSelect.value;
+      const selectedCategory = categorySelect.value;
+      const searchTerm = searchInput.value.toLowerCase();
+      
+      productCards.forEach(card => {
+        const carMatch = selectedCar === 'all' || card.dataset.car === selectedCar;
+        const categoryMatch = selectedCategory === 'all' || card.dataset.category === selectedCategory;
+        const productName = card.querySelector('h3').textContent.toLowerCase();
+        const searchMatch = productName.includes(searchTerm);
+        
+        if (carMatch && categoryMatch && searchMatch) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+    
+    // افزودن رویدادهای فیلتر
+    carSelect.addEventListener('change', filterProducts);
+    categorySelect.addEventListener('change', filterProducts);
+    searchInput.addEventListener('input', filterProducts);
+    
+    // افزودن محصول به سبد خرید
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const card = e.target.closest('.product-card');
+        const id = card.dataset.car + '-' + card.querySelector('h3').textContent;
+        const name = card.querySelector('h3').textContent;
+        const priceText = card.querySelector('.price').textContent;
+        const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+        
+        // بررسی وجود محصول در سبد
+        const existingItem = cart.find(item => item.id === id);
+        
+        if (existingItem) {
+          existingItem.quantity++;
+        } else {
+          cart.push({ id, name, price, quantity: 1 });
+        }
+        
+        // ذخیره در localStorage و بروزرسانی UI
+        saveCart();
+        updateCartUI();
+        
+        // نمایش پیام موفقیت
+        showToast(`${name} به سبد خرید اضافه شد`);
+      });
     });
-  });
-</script>
-
+    
+    // حذف محصول از سبد
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      saveCart();
+      updateCartUI();
+      showToast('محصول از سبد حذف شد');
+    }
+    
+    // تغییر تعداد محصول
+    function updateQuantity(id, action) {
+      const item = cart.find(item => item.id === id);
+      
+      if (item) {
+        if (action === 'increase') {
+          item.quantity++;
+        } else if (action === 'decrease' && item.quantity > 1) {
+          item.quantity--;
+        }
+        
+        saveCart();
+        updateCartUI();
+      }
+    }
+    
+    // ذخیره سبد خرید در localStorage
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    
+    // بروزرسانی نمایش سبد خرید
+    function updateCartUI() {
+      cartItemsList.innerHTML = '';
+      let totalQuantity = 0;
+      let totalPrice = 0;
+      
+      if (cart.length === 0) {
+        cartItemsList.innerHTML = '<div class="empty-cart">سبد خرید شما خالی است</div>';
+        cartSummary.innerHTML = '';
+      } else {
+        cart.forEach(item => {
+          totalQuantity += item.quantity;
+          totalPrice += item.price * item.quantity;
+          
+          const li = document.createElement('li');
+          li.className = 'cart-item';
+          li.innerHTML = `
+            <div class="cart-item-header">
+              <span class="cart-item-name">${item.name}</span>
+              <span class="cart-item-price">${(item.price * item.quantity).toLocaleString()} تومان</span>
+            </div>
+            <div class="cart-item-controls">
+              <button class="quantity-btn" data-id="${item.id}" data-action="decrease">-</button>
+              <span>${item.quantity}</span>
+              <button class="quantity-btn" data-id="${item.id}" data-action="increase">+</button>
+              <button class="remove-btn" data-id="${item.id}">حذف</button>
+            </div>
+          `;
+          cartItemsList.appendChild(li);
+        });
+        
+        // نمایش جمع کل
+        cartSummary.innerHTML = `
+          <div class="cart-total">
+            جمع کل: <span>${totalPrice.toLocaleString()} تومان</span>
+          </div>
+          <button id="checkout-btn">تسویه حساب</button>
+        `;
+      }
+      
+      // بروزرسانی شمارنده سبد خرید
+      cartCount.textContent = totalQuantity;
+      
+      // اضافه کردن ایونت‌های جدید برای دکمه‌های سبد خرید
+      document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          removeFromCart(e.target.dataset.id);
+        });
+      });
+      
+      document.querySelectorAll('.quantity-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          updateQuantity(e.target.dataset.id, e.target.dataset.action);
+        });
+      });
+      
+      // ایونت برای دکمه تسویه حساب
+      const checkoutBtn = document.getElementById('checkout-btn');
+      if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+          alert('در حال انتقال به صفحه پرداخت...');
+        });
+      }
+    }
+    
+    // نمایش پیام toast
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 10);
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          document.body.removeChild(toast);
+        }, 300);
+      }, 3000);
+    }
+    
+    // استایل toast
+    const toastStyle = document.createElement('style');
+    toastStyle.textContent = `
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #333;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 4px;
+        z-index: 10000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        font-size: 0.9rem;
+      }
+      .toast.show {
+        opacity: 1;
+      }
+    `;
+    document.head.appendChild(toastStyle);
+    
+    // بارگذاری اولیه سبد خرید
+    updateCartUI();
+  </script>
 </body>
 </html>

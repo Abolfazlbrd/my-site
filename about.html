@@ -1,87 +1,727 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>درباره ما - یدک مارکت</title>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>درباره ما | یدک مارکت - فروشگاه تخصصی لوازم یدکی خودرو</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
+    /* استایل‌های مشترک با صفحه اصلی */
+    :root {
+      --primary-color: #e40000;
+      --primary-dark: #c10000;
+      --secondary-color: #f8f8f8;
+      --text-color: #333;
+      --light-gray: #f5f5f5;
+      --border-color: #ddd;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
     body {
       margin: 0;
       font-family: 'Vazirmatn', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-      line-height: 1.8;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      line-height: 1.6;
     }
+    
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
       background-color: #fff;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
+    
     .logo {
       font-weight: bold;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
+      color: var(--primary-color);
     }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
     nav a {
-      margin: 0 1rem;
       text-decoration: none;
-      color: #333;
+      color: var(--text-color);
+      position: relative;
+      font-weight: 500;
+      transition: color 0.3s ease;
     }
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #fff;
+    
+    nav a:hover {
+      color: var(--primary-color);
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+      left: 0;
+    }
+
+    /* دکمه سبد خرید */
+    #cart-button {
+      cursor: pointer;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      font-weight: bold;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
     }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #c10000;
+    
+    #cart-button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
     }
-    footer {
+    
+    #cart-count {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      background: #ffcc00;
+      color: black;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    /* بخش درباره ما */
+    .about-section {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .about-container {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .section-title {
       text-align: center;
-      padding: 1rem;
-      background-color: #eee;
-      font-size: 0.9rem;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 50%;
+      transform: translateX(50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary-color);
+      border-radius: 2px;
+    }
+    
+    .about-content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #555;
+    }
+    
+    .about-content p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .divider {
+      height: 1px;
+      background-color: var(--border-color);
+      margin: 2rem 0;
+    }
+    
+    .developer-info {
+      background-color: var(--light-gray);
+      padding: 1.5rem;
+      border-radius: 8px;
       margin-top: 2rem;
+    }
+    
+    .developer-info h3 {
+      color: var(--primary-color);
+      margin-top: 0;
+    }
+
+    /* پنل سبد خرید */
+    #cart-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 380px;
+      height: 100vh;
+      background: white;
+      box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      padding: 1.5rem;
+      overflow-y: auto;
+      z-index: 9999;
+      direction: rtl;
+    }
+    
+    #cart-panel.open {
+      transform: translateX(0);
+    }
+    
+    #cart-panel h2 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid var(--primary-color);
+    }
+    
+    #cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .cart-item {
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+    }
+    
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    
+    .cart-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .cart-item-name {
+      font-weight: bold;
+    }
+    
+    .cart-item-price {
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+    
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 0.5rem 0;
+    }
+    
+    .quantity-btn {
+      background: #f0f0f0;
+      border: 1px solid var(--border-color);
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+    
+    .quantity-btn:hover {
+      background: #e0e0e0;
+    }
+    
+    .remove-btn {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    
+    .remove-btn:hover {
+      background: #ff5252;
+    }
+    
+    .cart-total {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin: 1.5rem 0;
+      text-align: left;
+      padding-top: 1rem;
+      border-top: 2px solid var(--border-color);
+    }
+    
+    .cart-total span {
+      color: var(--primary-color);
+    }
+    
+    #checkout-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 8px;
+      width: 100%;
+      margin-top: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    #checkout-btn:hover {
+      background: #3d8b40;
+      transform: translateY(-2px);
+    }
+    
+    #close-cart {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+    
+    #close-cart:hover {
+      background: var(--primary-dark);
+    }
+    
+    .empty-cart {
+      text-align: center;
+      padding: 2rem 0;
+      color: #888;
+    }
+
+    /* لایه overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 9998;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* فوتر */
+    footer {
+      background-color: #1e1e1e;
+      color: #fff;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #fff;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+    
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-column li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-column a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-column a:hover {
+      color: #fff;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-links a {
+      color: #fff;
+      background-color: #333;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid #333;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    /* رسپانسیو */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .about-container {
+        padding: 1.5rem;
+      }
+      
+      #cart-panel {
+        width: 90%;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <div>
-      <span class="logo">یدک مارکت</span>
-    </div>
+    <div><span class="logo">یدک مارکت</span></div>
     <nav>
       <a href="index.html">خانه</a>
       <a href="products.html">محصولات</a>
+      <a href="categories.html">دسته‌بندی‌ها</a>
       <a href="about.html">درباره‌ما</a>
       <a href="contact.html">تماس با ما</a>
+      <button id="cart-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        سبد خرید
+        <span id="cart-count">0</span>
+      </button>
     </nav>
   </header>
 
-  <div class="container">
-    <h1>درباره یدک مارکت</h1>
-    <p>یدک مارکت یک فروشگاه آنلاین برای خرید مطمئن و سریع لوازم یدکی خودرو است. هدف ما ارائه قطعات باکیفیت، با ضمانت اصالت و ارسال سریع به تمام نقاط کشور است.</p>
+  <section class="about-section">
+    <div class="about-container">
+      <h2 class="section-title">درباره یدک مارکت</h2>
+      <div class="about-content">
+        <p>یدک مارکت یک فروشگاه آنلاین تخصصی در زمینه تأمین و توزیع لوازم یدکی خودرو است که با بیش از ۱۰ سال سابقه درخشان در این حوزه فعالیت می‌کند. ما با تکیه بر تیمی متخصص و با تجربه، همواره تلاش کرده‌ایم تا بهترین و باکیفیت‌ترین قطعات را با ضمانت اصالت به مشتریان خود ارائه دهیم.</p>
+        
+        <p>ماموریت ما ایجاد یک تجربه خرید آسان، مطمئن و سریع برای تمامی مشتریان در سراسر کشور است. با استفاده از سیستم حمل و نقل پیشرفته، محصولات شما در کوتاه‌ترین زمان ممکن به دستتان خواهد رسید.</p>
+        
+        <div class="divider"></div>
+        
+        <h3>چرا یدک مارکت را انتخاب کنید؟</h3>
+        <ul>
+          <li>تضمین اصالت و کیفیت تمامی محصولات</li>
+          <li>ارسال سریع به تمام نقاط کشور</li>
+          <li>پشتیبانی تخصصی قبل و بعد از خرید</li>
+          <li>قیمت‌های رقابتی و منصفانه</li>
+          <li>گارانتی و ضمانت بازگشت کالا</li>
+        </ul>
+        
+        <div class="developer-info">
+          <h3>توسعه‌دهنده پروژه</h3>
+          <p>این پروژه توسط <strong>ابوالفضل برادران</strong> طراحی و پیاده‌سازی شده است.</p>
+          <p>شماره دانشجویی: <strong>40120841054232</strong></p>
+          <p>این وب‌سایت به‌عنوان یک پروژه دانشجویی برای درس کارگاه کامپیوتر ایجاد شده و هدف آن نمایش توانایی در طراحی صفحات HTML و استفاده از CSS برای ساخت یک فروشگاه ساده آنلاین است.</p>
+          <p>با احترام تقدیم به استاد محترم 🌹</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <p>ما تلاش می‌کنیم تجربه‌ای راحت و قابل اعتماد برای مشتریان فراهم کنیم؛ از جستجوی محصول گرفته تا تحویل درب منزل.</p>
-
-    <hr>
-
-    <h2>توسعه‌دهنده پروژه</h2>
-    <p>این پروژه توسط <strong>ابوالفضل برادران</strong> طراحی و پیاده‌سازی شده است.</p>
-    <p>شماره دانشجویی: <strong>40120841054232</strong></p>
-    <p>این وب‌سایت به‌عنوان یک پروژه دانشجویی برای درس کارگاه کامپیوتر ایجاد شده و هدف آن نمایش توانایی در طراحی صفحات HTML و استفاده از CSS برای ساخت یک فروشگاه ساده آنلاین است.</p>
-    <p>با احترام تقدیم به استاد محترم 🌹</p>
-  </div>
+  <!-- پنل سبد خرید -->
+  <aside id="cart-panel" aria-label="سبد خرید">
+    <button id="close-cart">بستن سبد</button>
+    <h2>سبد خرید شما</h2>
+    <ul id="cart-items"></ul>
+    <div id="cart-summary"></div>
+  </aside>
+  
+  <div class="overlay" id="overlay"></div>
 
   <footer>
-    © تمامی حقوق این سایت محفوظ است - یدک مارکت
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>یدک مارکت</h3>
+        <p>فروشگاه تخصصی لوازم یدکی خودرو با بیش از ۱۰ سال سابقه درخشان در زمینه تأمین و توزیع لوازم یدکی اصل</p>
+        <div class="social-links">
+          <a href="#"><span>📱</span></a>
+          <a href="#"><span>📧</span></a>
+          <a href="#"><span>📞</span></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>لینک‌های مفید</h3>
+        <ul>
+          <li><a href="index.html">خانه</a></li>
+          <li><a href="products.html">محصولات</a></li>
+          <li><a href="categories.html">دسته‌بندی‌ها</a></li>
+          <li><a href="about.html">درباره ما</a></li>
+          <li><a href="contact.html">تماس با ما</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>خدمات مشتریان</h3>
+        <ul>
+          <li><a href="#">پرسش‌های متداول</a></li>
+          <li><a href="#">شرایط بازگرداندن کالا</a></li>
+          <li><a href="#">رویه خرید از سایت</a></li>
+          <li><a href="#">قوانین و مقررات</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>تماس با ما</h3>
+        <ul>
+          <li>تهران، خیابان آزادی، کوچه شهید فلانی، پلاک ۱۲</li>
+          <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+          <li>موبایل: ۰۹۱۲۳۴۵۶۷۸۹</li>
+          <li>ایمیل: info@yadakmarket.ir</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>کلیه حقوق مادی و معنوی این وبسایت متعلق به یدک مارکت می‌باشد &copy; ۱۴۰۳</p>
+    </div>
   </footer>
+
+  <script>
+    // انتخاب المنت‌های مورد نیاز
+    const cartButton = document.getElementById('cart-button');
+    const cartPanel = document.getElementById('cart-panel');
+    const closeCartBtn = document.getElementById('close-cart');
+    const cartItemsList = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+    const cartSummary = document.getElementById('cart-summary');
+    const overlay = document.getElementById('overlay');
+    
+    // آرایه سبد خرید
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // باز و بسته کردن پنل سبد خرید
+    function toggleCartPanel() {
+      cartPanel.classList.toggle('open');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = cartPanel.classList.contains('open') ? 'hidden' : 'auto';
+    }
+    
+    cartButton.addEventListener('click', toggleCartPanel);
+    closeCartBtn.addEventListener('click', toggleCartPanel);
+    overlay.addEventListener('click', toggleCartPanel);
+    
+    // حذف محصول از سبد
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      saveCart();
+      updateCartUI();
+      showToast('محصول از سبد حذف شد');
+    }
+    
+    // تغییر تعداد محصول
+    function updateQuantity(id, action) {
+      const item = cart.find(item => item.id === id);
+      
+      if (item) {
+        if (action === 'increase') {
+          item.quantity++;
+        } else if (action === 'decrease' && item.quantity > 1) {
+          item.quantity--;
+        }
+        
+        saveCart();
+        updateCartUI();
+      }
+    }
+    
+    // ذخیره سبد خرید در localStorage
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    
+    // بروزرسانی نمایش سبد خرید
+    function updateCartUI() {
+      cartItemsList.innerHTML = '';
+      let totalQuantity = 0;
+      let totalPrice = 0;
+      
+      if (cart.length === 0) {
+        cartItemsList.innerHTML = '<div class="empty-cart">سبد خرید شما خالی است</div>';
+        cartSummary.innerHTML = '';
+      } else {
+        cart.forEach(item => {
+          totalQuantity += item.quantity;
+          totalPrice += item.price * item.quantity;
+          
+          const li = document.createElement('li');
+          li.className = 'cart-item';
+          li.innerHTML = `
+            <div class="cart-item-header">
+              <span class="cart-item-name">${item.name}</span>
+              <span class="cart-item-price">${(item.price * item.quantity).toLocaleString()} تومان</span>
+            </div>
+            <div class="cart-item-controls">
+              <button class="quantity-btn" data-id="${item.id}" data-action="decrease">-</button>
+              <span>${item.quantity}</span>
+              <button class="quantity-btn" data-id="${item.id}" data-action="increase">+</button>
+              <button class="remove-btn" data-id="${item.id}">حذف</button>
+            </div>
+          `;
+          cartItemsList.appendChild(li);
+        });
+        
+        // نمایش جمع کل
+        cartSummary.innerHTML = `
+          <div class="cart-total">
+            جمع کل: <span>${totalPrice.toLocaleString()} تومان</span>
+          </div>
+          <button id="checkout-btn" onclick="window.location.href='checkout.html'">تسویه حساب</button>
+        `;
+      }
+      
+      // بروزرسانی شمارنده سبد خرید
+      cartCount.textContent = totalQuantity;
+      
+      // اضافه کردن ایونت‌های جدید برای دکمه‌های سبد خرید
+      document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          removeFromCart(e.target.dataset.id);
+        });
+      });
+      
+      document.querySelectorAll('.quantity-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          updateQuantity(e.target.dataset.id, e.target.dataset.action);
+        });
+      });
+    }
+    
+    // نمایش پیام toast
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 10);
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          document.body.removeChild(toast);
+        }, 300);
+      }, 3000);
+    }
+    
+    // استایل toast
+    const toastStyle = document.createElement('style');
+    toastStyle.textContent = `
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #333;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 4px;
+        z-index: 10000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        font-size: 0.9rem;
+      }
+      .toast.show {
+        opacity: 1;
+      }
+    `;
+    document.head.appendChild(toastStyle);
+    
+    // بارگذاری اولیه سبد خرید
+    updateCartUI();
+  </script>
 </body>
 </html>

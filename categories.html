@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دسته‌بندی‌ها | یدک مارکت - فروشگاه تخصصی لوازم یدکی خودرو</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* استایل‌های مشترک با صفحه اصلی */
+    :root {
+      --primary-color: #e40000;
+      --primary-dark: #c10000;
+      --secondary-color: #f8f8f8;
+      --text-color: #333;
+      --light-gray: #f5f5f5;
+      --border-color: #ddd;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: var(--text-color);
+      position: relative;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    nav a:hover {
+      color: var(--primary-color);
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+      left: 0;
+    }
+
+    /* دکمه سبد خرید */
+    #cart-button {
+      cursor: pointer;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+    }
+    
+    #cart-button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    #cart-count {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      background: #ffcc00;
+      color: black;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    /* بخش دسته‌بندی‌ها */
+    .categories-section {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #1e1e1e;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 50%;
+      transform: translateX(50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary-color);
+      border-radius: 2px;
+    }
+    
+    .categories-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .category-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    
+    .category-image {
+      height: 180px;
+      overflow: hidden;
+    }
+    
+    .category-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .category-card:hover .category-image img {
+      transform: scale(1.1);
+    }
+    
+    .category-info {
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .category-info h3 {
+      font-size: 1.3rem;
+      margin: 0.5rem 0;
+      color: var(--primary-color);
+    }
+    
+    .category-info p {
+      color: #666;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .category-btn {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .category-btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* فوتر */
+    footer {
+      background-color: #1e1e1e;
+      color: #fff;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #fff;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+    
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-column li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-column a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-column a:hover {
+      color: #fff;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-links a {
+      color: #fff;
+      background-color: #333;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid #333;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    /* پنل سبد خرید */
+    #cart-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 380px;
+      height: 100vh;
+      background: white;
+      box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      padding: 1.5rem;
+      overflow-y: auto;
+      z-index: 9999;
+      direction: rtl;
+    }
+    
+    #cart-panel.open {
+      transform: translateX(0);
+    }
+    
+    #cart-panel h2 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid var(--primary-color);
+    }
+    
+    #cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .cart-item {
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+    }
+    
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    
+    .cart-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .cart-item-name {
+      font-weight: bold;
+    }
+    
+    .cart-item-price {
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+    
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 0.5rem 0;
+    }
+    
+    .quantity-btn {
+      background: #f0f0f0;
+      border: 1px solid var(--border-color);
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+    
+    .quantity-btn:hover {
+      background: #e0e0e0;
+    }
+    
+    .remove-btn {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+    
+    .remove-btn:hover {
+      background: #ff5252;
+    }
+    
+    .cart-total {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin: 1.5rem 0;
+      text-align: left;
+      padding-top: 1rem;
+      border-top: 2px solid var(--border-color);
+    }
+    
+    .cart-total span {
+      color: var(--primary-color);
+    }
+    
+    #checkout-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 8px;
+      width: 100%;
+      margin-top: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    #checkout-btn:hover {
+      background: #3d8b40;
+      transform: translateY(-2px);
+    }
+    
+    #close-cart {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+    
+    #close-cart:hover {
+      background: var(--primary-dark);
+    }
+    
+    .empty-cart {
+      text-align: center;
+      padding: 2rem 0;
+      color: #888;
+    }
+
+    /* لایه overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 9998;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* رسپانسیو */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .categories-container {
+        grid-template-columns: 1fr;
+      }
+      
+      #cart-panel {
+        width: 90%;
+      }
+    }
+
+    /* استایل toast */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #333;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      z-index: 10000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 0.9rem;
+    }
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><span class="logo">یدک مارکت</span></div>
+    <nav>
+      <a href="index.html">خانه</a>
+      <a href="products.html">محصولات</a>
+      <a href="categories.html">دسته‌بندی‌ها</a>
+      <a href="about.html">درباره‌ما</a>
+      <a href="contact.html">تماس با ما</a>
+      <button id="cart-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        سبد خرید
+        <span id="cart-count">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <section class="categories-section">
+    <h2 class="section-title">دسته‌بندی‌های محصولات</h2>
+    <div class="categories-container">
+      <div class="category-card">
+        <div class="category-image">
+          <img src="https://i.imgur.com/JY5ZQ4a.jpg" alt="موتور و قطعات آن">
+        </div>
+        <div class="category-info">
+          <h3>موتور و قطعات آن</h3>
+          <p>انواع قطعات موتور شامل پیستون، شاتون، سوپاپ، تسمه تایم و دیگر قطعات</p>
+          <a href="products.html?category=engine" class="category-btn">مشاهده محصولات</a>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <div class="category-image">
+          <img src="https://i.imgur.com/KZ6mhCj.png" alt="سیستم ترمز">
+        </div>
+        <div class="category-info">
+          <h3>سیستم ترمز</h3>
+          <p>لنت ترمز، دیسک ترمز، کالیپر، روغن ترمز و دیگر قطعات سیستم ترمز</p>
+          <a href="products.html?category=brake" class="category-btn">مشاهده محصولات</a>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <div class="category-image">
+          <img src="https://i.imgur.com/rZK4EFZ.png" alt="سیستم تعلیق">
+        </div>
+        <div class="category-info">
+          <h3>سیستم تعلیق</h3>
+          <p>کمک فنر، سیبک، طبق، بوش و دیگر قطعات سیستم تعلیق خودرو</p>
+          <a href="products.html?category=suspension" class="category-btn">مشاهده محصولات</a>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <div class="category-image">
+          <img src="https://i.imgur.com/zlDB3vU.png" alt="سیستم الکتریکی">
+        </div>
+        <div class="category-info">
+          <h3>سیستم الکتریکی</h3>
+          <p>باتری، دینام، استارت، فیوز، رله و دیگر قطعات سیستم الکتریکی</p>
+          <a href="products.html?category=electrical" class="category-btn">مشاهده محصولات</a>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <div class="category-image">
+          <img src="https://i.imgur.com/mXJjZzQ.png" alt="روغن و مایعات">
+        </div>
+        <div class="category-info">
+          <h3>روغن و مایعات</h3>
+          <p>انواع روغن موتور، ترمز، هیدرولیک، ضد یخ و دیگر مایعات خودرو</p>
+          <a href="products.html?category=oil" class="category-btn">مشاهده محصولات</a>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <div class="category-image">
+          <img src="https://i.imgur.com/VvJQYfP.png" alt="بدنه و شیشه">
+        </div>
+        <div class="category-info">
+          <h3>بدنه و شیشه</h3>
+          <p>قطعات بدنه، چراغ، آینه، شیشه و دیگر لوازم مرتبط با بدنه خودرو</p>
+          <a href="products.html?category=body" class="category-btn">مشاهده محصولات</a>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <div class="category-image">
+          <img src="https://i.imgur.com/1PjGkEy.png" alt="تجهیزات داخلی">
+        </div>
+        <div class="category-info">
+          <h3>تجهیزات داخلی</h3>
+          <p>صندلی، فرمان، دنده، کفپوش و دیگر تجهیزات داخلی خودرو</p>
+          <a href="products.html?category=interior" class="category-btn">مشاهده محصولات</a>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <div class="category-image">
+          <img src="https://i.imgur.com/JY5ZQ4a.jpg" alt="سیستم خنک‌کننده">
+        </div>
+        <div class="category-info">
+          <h3>سیستم خنک‌کننده</h3>
+          <p>رادیاتور، واتر پمپ، ترموستات، شیلنگ و دیگر قطعات سیستم خنک‌کننده</p>
+          <a href="products.html?category=cooling" class="category-btn">مشاهده محصولات</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>یدک مارکت</h3>
+        <p>فروشگاه تخصصی لوازم یدکی خودرو با بیش از ۱۰ سال سابقه درخشان در زمینه تأمین و توزیع لوازم یدکی اصل</p>
+        <div class="social-links">
+          <a href="#"><span>📱</span></a>
+          <a href="#"><span>📧</span></a>
+          <a href="#"><span>📞</span></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>لینک‌های مفید</h3>
+        <ul>
+          <li><a href="index.html">خانه</a></li>
+          <li><a href="products.html">محصولات</a></li>
+          <li><a href="categories.html">دسته‌بندی‌ها</a></li>
+          <li><a href="about.html">درباره ما</a></li>
+          <li><a href="contact.html">تماس با ما</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>خدمات مشتریان</h3>
+        <ul>
+          <li><a href="#">پرسش‌های متداول</a></li>
+          <li><a href="#">شرایط بازگرداندن کالا</a></li>
+          <li><a href="#">رویه خرید از سایت</a></li>
+          <li><a href="#">قوانین و مقررات</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>تماس با ما</h3>
+        <ul>
+          <li>تهران، خیابان آزادی، کوچه شهید فلانی، پلاک ۱۲</li>
+          <li>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
+          <li>موبایل: ۰۹۱۲۳۴۵۶۷۸۹</li>
+          <li>ایمیل: info@yadakmarket.ir</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>کلیه حقوق مادی و معنوی این وبسایت متعلق به یدک مارکت می‌باشد &copy; ۱۴۰۳</p>
+    </div>
+  </footer>
+
+  <!-- پنل سبد خرید -->
+  <aside id="cart-panel" aria-label="سبد خرید">
+    <button id="close-cart">بستن سبد</button>
+    <h2>سبد خرید شما</h2>
+    <ul id="cart-items"></ul>
+    <div id="cart-summary"></div>
+  </aside>
+  
+  <div class="overlay" id="overlay"></div>
+
+  <script>
+    // مدیریت سبد خرید
+    class CartManager {
+      constructor() {
+        this.cartButton = document.getElementById('cart-button');
+        this.cartPanel = document.getElementById('cart-panel');
+        this.closeCartBtn = document.getElementById('close-cart');
+        this.cartItemsList = document.getElementById('cart-items');
+        this.cartCount = document.getElementById('cart-count');
+        this.cartSummary = document.getElementById('cart-summary');
+        this.overlay = document.getElementById('overlay');
+        
+        this.cart = this.loadCart();
+        this.initEvents();
+        this.updateCartUI();
+      }
+      
+      // بارگذاری سبد خرید از localStorage
+      loadCart() {
+        try {
+          const cartData = localStorage.getItem('cart');
+          return cartData ? JSON.parse(cartData) : [];
+        } catch (e) {
+          console.error('خطا در بارگذاری سبد خرید:', e);
+          return [];
+        }
+      }
+      
+      // ذخیره سبد خرید در localStorage
+      saveCart() {
+        localStorage.setItem('cart', JSON.stringify(this.cart));
+      }
+      
+      // مقداردهی اولیه رویدادها
+      initEvents() {
+        this.cartButton.addEventListener('click', () => this.toggleCartPanel());
+        this.closeCartBtn.addEventListener('click', () => this.toggleCartPanel());
+        this.overlay.addEventListener('click', () => this.toggleCartPanel());
+      }
+      
+      // باز و بسته کردن پنل سبد خرید
+      toggleCartPanel() {
+        this.cartPanel.classList.toggle('open');
+        this.overlay.classList.toggle('active');
+        document.body.style.overflow = this.cartPanel.classList.contains('open') ? 'hidden' : 'auto';
+      }
+      
+      // حذف محصول از سبد
+      removeFromCart(id) {
+        this.cart = this.cart.filter(item => item.id !== id);
+        this.saveCart();
+        this.updateCartUI();
+        this.showToast('محصول از سبد حذف شد');
+      }
+      
+      // تغییر تعداد محصول
+      updateQuantity(id, action) {
+        const item = this.cart.find(item => item.id === id);
+        
+        if (item) {
+          if (action === 'increase') {
+            item.quantity++;
+          } else if (action === 'decrease' && item.quantity > 1) {
+            item.quantity--;
+          }
+          
+          this.saveCart();
+          this.updateCartUI();
+        }
+      }
+      
+      // انتقال به صفحه پرداخت
+      checkout() {
+        if (this.cart.length === 0) {
+          this.showToast('سبد خرید شما خالی است');
+          return;
+        }
+        
+        // ذخیره سبد خرید برای صفحه پرداخت
+        localStorage.setItem('checkoutCart', JSON.stringify(this.cart));
+        
+        // انتقال به صفحه پرداخت
+        window.location.href = 'checkout.html';
+      }
+      
+      // بروزرسانی نمایش سبد خرید
+      updateCartUI() {
+        this.cartItemsList.innerHTML = '';
+        let totalQuantity = 0;
+        let totalPrice = 0;
+        
+        if (this.cart.length === 0) {
+          this.cartItemsList.innerHTML = '<div class="empty-cart">سبد خرید شما خالی است</div>';
+          this.cartSummary.innerHTML = '';
+        } else {
+          this.cart.forEach(item => {
+            totalQuantity += item.quantity;
+            totalPrice += item.price * item.quantity;
+            
+            const li = document.createElement('li');
+            li.className = 'cart-item';
+            li.innerHTML = `
+              <div class="cart-item-header">
+                <span class="cart-item-name">${item.name}</span>
+                <span class="cart-item-price">${(item.price * item.quantity).toLocaleString()} تومان</span>
+              </div>
+              <div class="cart-item-controls">
+                <button class="quantity-btn" data-id="${item.id}" data-action="decrease">-</button>
+                <span>${item.quantity}</span>
+                <button class="quantity-btn" data-id="${item.id}" data-action="increase">+</button>
+                <button class="remove-btn" data-id="${item.id}">حذف</button>
+              </div>
+            `;
+            this.cartItemsList.appendChild(li);
+          });
+          
+          // نمایش جمع کل
+          this.cartSummary.innerHTML = `
+            <div class="cart-total">
+              جمع کل: <span>${totalPrice.toLocaleString()} تومان</span>
+            </div>
+            <button id="checkout-btn">تسویه حساب</button>
+          `;
+          
+          // اضافه کردن رویداد برای دکمه تسویه حساب
+          document.getElementById('checkout-btn').addEventListener('click', () => this.checkout());
+        }
+        
+        // بروزرسانی شمارنده سبد خرید
+        this.cartCount.textContent = totalQuantity;
+        
+        // اضافه کردن ایونت‌های جدید برای دکمه‌های سبد خرید
+        document.querySelectorAll('.remove-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            this.removeFromCart(e.target.dataset.id);
+          });
+        });
+        
+        document.querySelectorAll('.quantity-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            this.updateQuantity(e.target.dataset.id, e.target.dataset.action);
+          });
+        });
+      }
+      
+      // نمایش پیام toast
+      showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('show');
+        }, 10);
+        
+        setTimeout(() => {
+          toast.classList.remove('show');
+          setTimeout(() => {
+            document.body.removeChild(toast);
+          }, 300);
+        }, 3000);
+      }
+    }
+
+    // مقداردهی اولیه سبد خرید هنگام بارگذاری صفحه
+    document.addEventListener('DOMContentLoaded', () => {
+      new CartManager();
+    });
+  </script>
+</body>
+</html>
