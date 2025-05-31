@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>محصولات - یدک مارکت</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: #f9f9f9;
+      color: #222;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+    nav a:hover {
+      color: #e40000;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .filters {
+      max-width: 500px;
+      margin: 2rem auto;
+      display: flex;
+      justify-content: center;
+    }
+    .filter-box {
+      background: linear-gradient(135deg, #fefefe, #f3f3f3);
+      padding: 1.5rem 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 350px;
+      text-align: center;
+    }
+    .filter-box h3 {
+      margin-bottom: 1rem;
+      color: #e60000;
+      font-size: 1.2rem;
+    }
+    .filter-box select {
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+      background-color: #fff;
+    }
+
+    .products-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      width: 200px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .product-card img {
+      width: 80px;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+    .product-card button {
+      background-color: #e60000;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .product-card button:hover {
+      background-color: #c10000;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #eee;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">یدک مارکت</div>
+  <nav>
+      <a href="index.html">خانه</a>
+      <a href="products.html">محصولات</a>
+      <a href="about.html">درباره‌ما</a>
+      <a href="contact.html">تماس با ما</a>
+  </nav>
+</header>
+
+<h1>لیست محصولات</h1>
+
+<div class="filters">
+  <div class="filter-box">
+    <h3>انتخاب ماشین</h3>
+    <select id="car-select">
+      <option value="all">همه ماشین‌ها</option>
+      <option value="pride">پراید</option>
+      <option value="peugeot">پژو</option>
+      <option value="samand">سمند</option>
+      <option value="l90">ال‌۹۰</option>
+      <option value="tiba">تیبا</option>
+    </select>
+  </div>
+</div>
+
+<div class="products-container">
+  <div class="product-card" data-car="pride">
+    <img src="https://i.imgur.com/KZ6mhCj.png" alt="لنت ترمز جلو پراید" />
+    <p>لنت ترمز جلو پراید</p>
+    <p>۴۰۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="pride">
+    <img src="https://i.imgur.com/KZ6mhCj.png" alt="چراغ عقب پراید" />
+    <p>چراغ عقب پراید</p>
+    <p>۳۰۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="pride">
+    <img src="https://i.imgur.com/KZ6mhCj.png" alt="فیلتر هوا پراید" />
+    <p>فیلتر هوا پراید</p>
+    <p>۸۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+
+  <div class="product-card" data-car="peugeot">
+    <img src="https://i.imgur.com/rZK4EFZ.png" alt="فیلتر روغن پژو" />
+    <p>فیلتر روغن پژو</p>
+    <p>۱۵۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="peugeot">
+    <img src="https://i.imgur.com/rZK4EFZ.png" alt="کمک فنر پژو" />
+    <p>کمک فنر پژو</p>
+    <p>۹۵۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="peugeot">
+    <img src="https://i.imgur.com/rZK4EFZ.png" alt="دیسک ترمز پژو" />
+    <p>دیسک ترمز پژو</p>
+    <p>۷۵۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="peugeot">
+    <img src="https://i.imgur.com/rZK4EFZ.png" alt="چراغ مه شکن پژو" />
+    <p>چراغ مه شکن پژو</p>
+    <p>۳۲۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+
+  <div class="product-card" data-car="samand">
+    <img src="https://i.imgur.com/KZ6mhCj.png" alt="لنت ترمز سمند" />
+    <p>لنت ترمز سمند</p>
+    <p>۴۳۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="samand">
+    <img src="https://i.imgur.com/KZ6mhCj.png" alt="شمع موتور سمند" />
+    <p>شمع موتور سمند</p>
+    <p>۱۸۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="samand">
+    <img src="https://i.imgur.com/KZ6mhCj.png" alt="فیلتر کابین سمند" />
+    <p>فیلتر کابین سمند</p>
+    <p>۱۲۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="samand">
+    <img src="https://i.imgur.com/KZ6mhCj.png" alt="آینه بغل سمند" />
+    <p>آینه بغل سمند</p>
+    <p>۳۹۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+
+  <div class="product-card" data-car="tiba">
+    <img src="https://i.imgur.com/zlDB3vU.png" alt="لنت ترمز تیبا" />
+    <p>لنت ترمز تیبا</p>
+    <p>۴۱۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="tiba">
+    <img src="https://i.imgur.com/zlDB3vU.png" alt="فیلتر هوا تیبا" />
+    <p>فیلتر هوا تیبا</p>
+    <p>۹۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="tiba">
+    <img src="https://i.imgur.com/zlDB3vU.png" alt="آینه بغل تیبا" />
+    <p>آینه بغل تیبا</p>
+    <p>۳۴۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+
+  <div class="product-card" data-car="l90">
+    <img src="https://i.imgur.com/zlDB3vU.png" alt="لامپ جلو ال۹۰" />
+    <p>لامپ جلو ال۹۰</p>
+    <p>۹۵٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="l90">
+    <img src="https://i.imgur.com/zlDB3vU.png" alt="سنسور دنده عقب ال۹۰" />
+    <p>سنسور دنده عقب ال۹۰</p>
+    <p>۲۵۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="l90">
+    <img src="https://i.imgur.com/zlDB3vU.png" alt="فیلتر روغن ال۹۰" />
+    <p>فیلتر روغن ال۹۰</p>
+    <p>۱۱۰٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+  <div class="product-card" data-car="l90">
+    <img src="https://i.imgur.com/zlDB3vU.png" alt="واشر درب سوپاپ ال۹۰" />
+    <p>واشر درب سوپاپ ال۹۰</p>
+    <p>۷۵٬۰۰۰ تومان</p>
+    <button>افزودن به سبد</button>
+  </div>
+</div>
+
+
+<footer>
+  © تمامی حقوق این سایت محفوظ است - یدک مارکت
+</footer>
+
+<script>
+  const carSelect = document.getElementById('car-select');
+  const products = document.querySelectorAll('.product-card');
+
+  carSelect.addEventListener('change', function() {
+    const selectedCar = carSelect.value;
+    products.forEach(product => {
+      if (selectedCar === 'all' || product.dataset.car === selectedCar) {
+        product.style.display = 'block';
+      } else {
+        product.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

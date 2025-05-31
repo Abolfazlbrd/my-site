@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>یدک مارکت</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: #f4f4f4;
+      color: #222;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    .logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+    }
+    nav a:hover {
+      color: #d9534f; /* رنگ قرمز ملایم */
+      transition: color 0.3s ease;
+    }
+
+  
+    .hero {
+      padding: 3rem 1rem;
+      background-color: #f8f8f8;
+    }
+    .hero-content {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      width: 500px;
+    }
+    .hero-text {
+      max-width: 600px;
+    }
+    .hero-text h1 {
+      font-size: 2.5rem;
+      color: #1e1e1e;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+    .btn-red {
+      background-color: #e40000;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn-red:hover {
+      background-color: #c10000;
+    }
+    .categories,
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 2rem;
+      justify-content: center;
+      background-color: #fff;
+    }
+    .category-box,
+    .product-card,
+    .feature-box {
+      background: #f5f5f5;
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      flex: 1 1 120px;
+      max-width: 150px;
+    }
+    .products {
+      padding: 2rem;
+      background-color: #fff;
+    }
+    .product-card {
+      max-width: 180px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+    .product-card img {
+      width: 100px;
+      height: auto;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+    }
+    .product-card button {
+      margin-top: 0.8rem;
+      background-color: #e60000;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .product-card button:hover {
+      background-color: #b50000;
+    }
+    .discount-tag {
+      background-color: #e40000;
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-weight: bold;
+      box-shadow: 0 0 5px rgba(228, 0, 0, 0.7);
+    }
+    .product-card del {
+      color: #888;
+      font-size: 0.85rem;
+      margin-left: 6px;
+    }
+    .product-card p {
+      margin: 0.2rem 0;
+      font-size: 0.95rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #eee;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <span class="logo">یدک مارکت</span>
+    </div>
+    <nav>
+      <a href="index.html">خانه</a>
+      <a href="products.html">محصولات</a>
+      <a href="about.html">درباره‌ما</a>
+      <a href="contact.html">تماس با ما</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-image">
+        <img src="lavazem-yadaki-h.jpg" alt="لوازم یدکی خودرو" />
+      </div>
+      <div class="hero-text">
+        <h1>خرید مطمئن<br /> لوازم یدکی خودرو</h1>
+        <button class="btn-red" onclick="window.location.href='products.html'">مشاهده محصولات</button>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="categories">
+    <div class="category-box">موتور</div>
+    <div class="category-box">بدنه</div>
+    <div class="category-box">ترمز</div>
+    <div class="category-box">برقی</div>
+  </section>
+
+  <section class="products">
+    <h2 style="text-align:center">محصولات ویژه</h2>
+    <div class="categories">
+      <div class="product-card">
+        <span class="discount-tag">٪۱۰ تخفیف</span>
+        <img src="https://i.imgur.com/KZ6mhCj.png" alt="دیسک ترمز" />
+        <p><strong>دیسک ترمز</strong></p>
+        <p><del>۴۵۰٬۰۰۰</del> - <strong>۴۰۵٬۰۰۰ تومان</strong></p>
+        <button>افزودن به سبد</button>
+      </div>
+      <div class="product-card">
+        <span class="discount-tag">٪۱۵ تخفیف</span>
+        <img src="https://i.imgur.com/rZK4EFZ.png" alt="لنت جلو" />
+        <p><strong>لنت جلو پژو</strong></p>
+        <p><del>۵۰۰٬۰۰۰</del> - <strong>۴۲۵٬۰۰۰ تومان</strong></p>
+        <button>افزودن به سبد</button>
+      </div>
+      <div class="product-card">
+        <span class="discount-tag">٪۵ تخفیف</span>
+        <img src="https://i.imgur.com/zlDB3vU.png" alt="فیلتر هوا" />
+        <p><strong>فیلتر هوا</strong></p>
+        <p><del>۱۰۰٬۰۰۰</del> - <strong>۹۵٬۰۰۰ تومان</strong></p>
+        <button>افزودن به سبد</button>
+      </div>
+      <div class="product-card">
+        <span class="discount-tag">٪۲۰ تخفیف</span>
+        <img src="https://i.imgur.com/KZ6mhCj.png" alt="واشر سرسیلندر" />
+        <p><strong>واشر سرسیلندر</strong></p>
+        <p><del>۳۰۰٬۰۰۰</del> - <strong>۲۴۰٬۰۰۰ تومان</strong></p>
+        <button>افزودن به سبد</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature-box">
+      🚚
+      <h4>ارسال سریع</h4>
+      <p>تحویل فوری به تمام نقاط کشور</p>
+    </div>
+    <div class="feature-box">
+      🛡️
+      <h4>ضمانت اصالت کالا</h4>
+      <p>تمامی قطعات اصل و با ضمانت هستند</p>
+    </div>
+    <div class="feature-box">
+      📞
+      <h4>پشتیبانی تلفنی</h4>
+      <p>۷ روز هفته پاسخگوی شما هستیم</p>
+    </div>
+    <div class="feature-box">
+      📦
+      <h4>بازگشت کالا تا ۷ روز</h4>
+      <p>در صورت عدم رضایت، کالا را بازگردانید</p>
+    </div>
+  </section>
+
+  <footer>
+    © تمامی حقوق این سایت محفوظ است - یدک مارکت
+  </footer>
+</body>
+</html>
